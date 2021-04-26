@@ -1,6 +1,8 @@
 TCP
 ===
 
+#### Sequence Diagram
+
 ```plantuml
 @startuml
 participant "Client" as c
