@@ -1,5 +1,5 @@
-TCP
-===
+HTTP
+====
 
 #### Sequence Diagram
 
