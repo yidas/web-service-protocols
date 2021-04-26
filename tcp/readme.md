@@ -9,29 +9,30 @@ participant "Client" as c
 participant "Server" as s
 
 == TCP Establishment==
-c->s: SYN seq=x
+c->s: [SYN] Seq=x
 note left: SYN_SENT\n(connect())
 note right: LISTEN\n(listen())
-s->c: SYN seq=y, ACK=x+1
+s->c: [SYN, ACK] Seq=y, ACK=x+1
 note right: SYN_RCVD
 note left: ESTABLISHED
-c->s: ACK y+1
+c->s: [ACK] Seq=x+1, ACK y+1
 note right: ESTABLISHED
 == Data Exchange ==
-c->s: Application data\nseq=x+1, ACK=y+1
+c->s: Application data\n[PSH, ACK] Seq=x+1, ACK=y+1
 note left: (write())
-s->c: Application data\nACK=x+2
+s->c: Application data\n[PSH, ACK] Seq=y+1, ACK=a(x+Len)
 note right: (read())
 ==TCP Termination==
-c->s: FIN seq=x+2, ACK=y+1
+c->s: [FIN, ACK] Seq=a, ACK=b(y+1+Len)
 note left: FIN_WAIT_1
 note right: CLOSE_WAIT
-s->c: ACK=x+3
+s->c: [ACK] Seq=b, ACK=a+1
 note left: FIN_WAIT_2
-s->c: FIN seq=y+1
+s->c: [FIN] Seq=b, ACK=a+1
 note right: LAST_ACK
 note left: TIME_WAIT
-c->s: ACK=y+2
+c->s: [ACK] Seq=a, ACK=b+1
+
 
 @enduml
 ```
