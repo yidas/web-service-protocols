@@ -8,6 +8,27 @@ TCP
 participant "Client" as c
 participant "Server" as s
 
+c->s: SYN
+s->c: SYN, ACK
+c->s: ACK
+...
+c<->s: Data exchange
+...
+c->s: FIN, ACK
+s->c: ACK
+s->c: FIN
+c->s: ACK
+
+@enduml
+```
+
+#### Sequence Diagram
+
+```plantuml
+@startuml
+participant "Client" as c
+participant "Server" as s
+
 == TCP Establishment==
 c->s: [SYN] Seq=x
 note left: SYN_SENT\n(connect())
