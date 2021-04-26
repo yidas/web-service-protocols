@@ -35,3 +35,8 @@ c->s: ACK=y+2
 
 @enduml
 ```
+
+References
+----------
+
+[Wikipedia - Transmission Control Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)
