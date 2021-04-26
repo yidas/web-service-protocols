@@ -20,8 +20,10 @@ note right: ESTABLISHED
 == Data Exchange ==
 c->s: Application data\n[PSH, ACK] Seq=x+1, ACK=y+1
 note left: (write())
+s-->c: [ACK] Seq=y+1, ACK=a(x+Len)
 s->c: Application data\n[PSH, ACK] Seq=y+1, ACK=a(x+Len)
 note right: (read())
+c-->s: [ACK] Seq=a, ACK=b(y+1+Len)
 ==TCP Termination==
 c->s: [FIN, ACK] Seq=a, ACK=b(y+1+Len)
 note left: FIN_WAIT_1
