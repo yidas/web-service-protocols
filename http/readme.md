@@ -1,28 +1,19 @@
 HTTP
 ====
 
-#### Sequence Diagram
-
-```plantuml
-@startuml
-participant "Client" as c
-participant "Server" as s
-
-c->s: GET HTTP/1.1
-s->c: HTTP/1.1 200 OK
-...
-c->s: POST HTTP/1.1
-s->c: HTTP/1.1 201 Created
-
-@enduml
-
-```
+### HTTP
 
 #### Sequence Diagram
 
-```plantuml
+![HTTP Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/http-flow.plantuml)
 
-```
+---
+
+### HTTPS
+
+#### Sequence Diagram
+
+![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml)
 
 References
 ----------
