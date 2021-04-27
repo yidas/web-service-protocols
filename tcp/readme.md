@@ -3,24 +3,7 @@ TCP
 
 #### Sequence Diagram
 
-```plantuml
-@startuml
-participant "Client" as c
-participant "Server" as s
-
-c->s: SYN
-s->c: SYN, ACK
-c->s: ACK
-...
-c<->s: Data exchange
-...
-c->s: FIN, ACK
-s->c: ACK
-s->c: FIN
-c->s: ACK
-
-@enduml
-```
+![Basic Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/tcp/basic-flow.plantuml)
 
 #### Sequence Diagram
 
