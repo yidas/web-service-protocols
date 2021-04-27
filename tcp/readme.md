@@ -1,9 +1,15 @@
 TCP
 ===
 
+### Basic Concept
+
 #### Sequence Diagram
 
 ![Basic Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/tcp/basic-flow.plantuml)
+
+---
+
+### Detailed Process
 
 #### Sequence Diagram
 
