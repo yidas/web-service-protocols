@@ -1,0 +1,16 @@
+@startuml
+participant "Client" as c
+participant "Server" as s
+
+c->s: SYN
+s->c: SYN, ACK
+c->s: ACK
+...
+c<->s: Data exchange
+...
+c->s: FIN, ACK
+s->c: ACK
+s->c: FIN
+c->s: ACK
+
+@enduml
