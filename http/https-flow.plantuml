@@ -1,11 +1,24 @@
 @startuml
 participant "Client" as c
 participant "Server" as s
-
-c->s: GET HTTP/1.1
-s->c: HTTP/1.1 200 OK
-...
-c->s: POST HTTP/1.1
-s->c: HTTP/1.1 201 Created
-
+==TCP Handshake==
+c->s: [SYN]
+s->c: [SYN, ACK]
+c->s: [ACK]
+==TLS Handshake==
+c->s: Client Hello\nSSL version, supported ciphers
+s->c: Server Hello\nCipher Suite
+s->c: Certificate
+s->c: Server Key Exchange, [Certificacte Request]. Server Hello Done
+c->c: Verify Server Certificate
+c->s: [Certificate], Client Key Exchange, [Certifiacte verify], \nChange Cipher Spec, Encrpted Handshake Message
+s->c: Change Cipher Spec, Encrpted Handshake Message
+==Data Exchange==
+c->s: Application Data
+s->c: Application Data
+==Connection termination==
+c->s: Encrypted Alert
+c->s: [FIN, ACK]
+s->c: [FIN, ACK]
+c->s: [ACK]
 @enduml
