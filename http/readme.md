@@ -19,3 +19,5 @@ References
 ----------
 
 [Wikipedia - Hypertext Transfer Protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+
+[Wikipedia - TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake)
