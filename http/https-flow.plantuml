@@ -6,15 +6,17 @@ c->s: [SYN]
 s->c: [SYN, ACK]
 c->s: [ACK]
 ==TLS Handshake==
-c->s: **Client Hello**\nSSL version, supported ciphers
-s->c: **Server Hello**\nCipher Suite
+c->s: **Client Hello**\nProtocol version, supported ciphers, a random number
+s->c: **Server Hello**\nChosen protocol version, a random number, Cipher Suite
 s->c: **Certificate**
 s->c: **Server Key Exchange, [Certificacte Request]. Server Hello Done**
-c->c: Verify Server Certificate
-c->s: **[Certificate], Client Key Exchange, [Certifiacte verify],** \n**Change Cipher Spec, Encrpted Handshake Message**
+c->c: Verify Server Certificate (Extract public key)
+c->s: **Client Key Exchange**\nPreMasterSecret (Encrypted using the public key of the server certificate)
 alt Certificate Request
+c->s: **Certificate, Certifiacte Verify**\nSignature using the client's certificate's private key\n(Can be verified by using the client's certificate's public key)
 s->s: Verify Client Certificate
 end
+c->s: **Change Cipher Spec, Encrpted Handshake Message**
 s->c: **Change Cipher Spec, Encrpted Handshake Message**
 ==Data Exchange==
 c->s: **Application Data**
