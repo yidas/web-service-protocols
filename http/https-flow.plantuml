@@ -14,10 +14,13 @@ c->c: Verify Server Certificate (Extract public key)
 c->s: **Client Key Exchange**\nPreMasterSecret (Encrypted using the public key of the server certificate)
 alt Certificate Request
 c->s: **Certificate, Certifiacte Verify**\nSignature using the client's certificate's private key\n(Can be verified by using the client's certificate's public key)
-s->s: Verify Client Certificate
+s->s: Verify signature
 end
-c->s: **Change Cipher Spec, Encrpted Handshake Message**
-s->c: **Change Cipher Spec, Encrpted Handshake Message**
+note over c, s: Compute MasterSecret by random numbers & PreMasterSecret
+c->s: **Change Cipher Spec, Encrpted Handshake Message**\n Finished message, derived from MasterSecret
+s->s: Decrypt and verify
+s->c: **Change Cipher Spec, Encrpted Handshake Message**\n Finished message, derived from MasterSecret
+c->c: Decrypt and verify
 ==Data Exchange==
 c->s: **Application Data**
 s->c: **Application Data**
