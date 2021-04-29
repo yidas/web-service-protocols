@@ -13,7 +13,7 @@ HTTP
 
 #### Sequence Diagram
 
-![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml)
+![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml)
 
 References
 ----------
