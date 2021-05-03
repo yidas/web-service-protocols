@@ -21,6 +21,8 @@ A TCP connection is managed by an operating system through a resource that repre
 
 ![Detailed Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/tcp/detailed-flow.plantuml)
 
+---
+
 References
 ----------
 
