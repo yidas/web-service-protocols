@@ -1,6 +1,8 @@
 TCP
 ===
 
+The Transmission Control Protocol (TCP) is one of the main protocols of the Internet protocol suite. It originated in the initial network implementation in which it complemented the Internet Protocol (IP). Therefore, the entire suite is commonly referred to as TCP/IP. 
+
 ### Basic Concept
 
 #### Sequence Diagram
