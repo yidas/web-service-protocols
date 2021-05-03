@@ -8,7 +8,7 @@ Resolution Process
 
 ### Sequence Diagram
 
-![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml#1)
+![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml)
 
 
 
