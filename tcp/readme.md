@@ -21,3 +21,5 @@ References
 ----------
 
 [Wikipedia - Transmission Control Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)
+
+[Wikipedia - Transmission Control Protocol - Protocol operation](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Protocol_operation)
