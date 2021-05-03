@@ -1,5 +1,3 @@
-# web-service-principles
-
 Web Service Principles
 ======================
 
