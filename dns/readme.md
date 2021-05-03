@@ -3,12 +3,14 @@ DNS
 
 The Domain Name System (DNS) is a hierarchical and decentralized naming system for computers, services, or other resources connected to the Internet or a private network. It associates various information with domain names assigned to each of the participating entities. Most prominently, it translates more readily memorized domain names to the numerical IP addresses needed for locating and identifying computer services and devices with the underlying network protocols.
 
+![Domain Name Space](https://upload.wikimedia.org/wikipedia/commons/b/b1/Domain_name_space.svg)
+
 Resolution Process
 ---------
 
 In theory, authoritative name servers are sufficient for the operation of the Internet. However, with only authoritative name servers operating, every DNS query must start with recursive queries at the root zone of the Domain Name System and each user system would have to implement resolver software capable of recursive operation.
 
-![Concept figure](//upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_of_an_iterative_DNS_resolver.svg/400px-Example_of_an_iterative_DNS_resolver.svg.png)
+![Concept figure](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_of_an_iterative_DNS_resolver.svg/400px-Example_of_an_iterative_DNS_resolver.svg.png)
 
 ### Sequence Diagram
 
