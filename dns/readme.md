@@ -6,6 +6,10 @@ The Domain Name System (DNS) is a hierarchical and decentralized naming system f
 Resolution Process
 ---------
 
+In theory, authoritative name servers are sufficient for the operation of the Internet. However, with only authoritative name servers operating, every DNS query must start with recursive queries at the root zone of the Domain Name System and each user system would have to implement resolver software capable of recursive operation.
+
+![Concept figure](//upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_of_an_iterative_DNS_resolver.svg/400px-Example_of_an_iterative_DNS_resolver.svg.png)
+
 ### Sequence Diagram
 
 ![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml&v=1)
