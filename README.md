@@ -1,7 +1,7 @@
 Web Service Principles
 ======================
 
-Web service principles and theories
+Web service principles and theories with UML
 
 OUTLINE
 -------
