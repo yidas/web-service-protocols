@@ -15,7 +15,9 @@ The **Hypertext Transfer Protocol (HTTP)** is an application layer protocol for 
 
 **Hypertext Transfer Protocol Secure (HTTPS)** is an extension of the Hypertext Transfer Protocol (HTTP). It is used for secure communication over a computer network, and is widely used on the Internet. In HTTPS, the communication protocol is encrypted using Transport Layer Security (TLS) or, formerly, Secure Sockets Layer (SSL). The protocol is therefore also referred to as **HTTP over TLS**, or **HTTP over SSL**.
 
-#### Sequence Diagram (Includes Client-authenticated)
+#### Sequence Diagram
+
+Inciding Client-authenticated (Two-way SSL)
 
 ![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml)
 
