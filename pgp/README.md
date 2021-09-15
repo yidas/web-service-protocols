@@ -5,6 +5,7 @@ PGP
 
 PGP and similar software follow the OpenPGP, an open standard of PGP encryption software, standard (RFC 4880) for encrypting and decrypting data.
 
+**GNU Privacy Guard (GnuPG or GPG)** is a free-software replacement for Symantec's PGP cryptographic software suite. It is compliant with RFC 4880, the IETF standards-track specification of OpenPGP. Modern versions of PGP are interoperable with GnuPG and other OpenPGP-compliant systems.
 
 ![PGP Works](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/PGP_diagram.svg/1000px-PGP_diagram.svg.png)
 
