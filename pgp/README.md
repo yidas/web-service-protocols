@@ -6,7 +6,7 @@ PGP
 PGP and similar software follow the OpenPGP, an open standard of PGP encryption software, standard (RFC 4880) for encrypting and decrypting data.
 
 
-![PGP Works](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/PGP_diagram.svg/1920px-PGP_diagram.svg.png)
+![PGP Works](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/PGP_diagram.svg/1000px-PGP_diagram.svg.png)
 
 
 References
