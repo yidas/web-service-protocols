@@ -1,0 +1,27 @@
+@startuml
+
+participant "Client" as c
+participant "Server" as s
+
+==TCP Handshake==
+c<->s: //Establish TCP Connection//
+==SSH Handshake==
+c->s: **Portocol**\nSSH protocol version, softwareversion
+s->c: **Portocol**\nSSH protocol version, softwareversion
+c->s: **Key Exchange Init**
+s->c: **Key Exchange Init**
+c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init**\n Client public key
+s->s: Compute shared secret
+s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply**\nServer public key\n**New Keys**\n**Encrypted Packet**
+c->c: Compute shared secret
+c->s: **New Keys**
+
+==Data Exchange==
+c->s: Encrypted Packet
+s->c: Encrypted Packet
+
+==Connection termination==
+c->s: Encrypted Packet
+c<->s: //Terminate TCP Connection//
+
+@enduml
