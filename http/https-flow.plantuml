@@ -2,9 +2,7 @@
 participant "Client" as c
 participant "Server" as s
 ==TCP Handshake==
-c->s: [SYN]
-s->c: [SYN, ACK]
-c->s: [ACK]
+c<->s: //Establish TCP Connection//
 ==TLS Handshake==
 c->s: **Client Hello**\nProtocol version, supported ciphers, a random number
 s->c: **Server Hello**\nChosen protocol version, a random number, Cipher Suite
@@ -26,7 +24,5 @@ c->s: **Application Data**
 s->c: **Application Data**
 ==Connection termination==
 c->s: **Encrypted Alert**
-c->s: [FIN, ACK]
-s->c: [FIN, ACK]
-c->s: [ACK]
+c<->s: //Terminate TCP Connection//
 @enduml
