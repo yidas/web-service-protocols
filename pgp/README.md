@@ -14,4 +14,6 @@ References
 
 - [Wikipedia - Pretty Good Privacy](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)
 
+- [Wikipedia - GNU Privacy Guard (GPG)](https://en.wikipedia.org/wiki/GNU_Privacy_Guard)
+
 - [RFC 4880 - OpenPGP Message Format](https://datatracker.ietf.org/doc/html/rfc4880)
