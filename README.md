@@ -8,10 +8,21 @@ OUTLINE
 
 - [DNS](dns)  
   Domain Name System
+  
+- [HTTP/HTTPS](http)  
+  Hypertext Transfer Protocol
+  
+- [SSH](ssh)  
+  Secure Shell
 
 - [TCP](tcp)  
   Transmission Control Protocol 
   
-- [HTTP/HTTPS](http)  
-  Hypertext Transfer Protocol
+- Others
+  - [PGP/GPG](pgp)  
+    Pretty Good Privacy / GNU Privacy Guard  
+  
+
+  
+
 
