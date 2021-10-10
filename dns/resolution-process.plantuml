@@ -17,7 +17,7 @@ tldns-->resolver: Name Server for googleplex.edu
 resolver->dns: Iterative Query to googleplex.edu
 dns-->resolver: Name Server for compsci.googleplex.edu
 resolver->sns: Iterative Query to compsci.googleplex.edu
-sns-->resolver: IP Address for www.net.compsci.googleplex.edu
+sns-->resolver: Record for www.net.compsci.googleplex.edu
 resolver->resolver: Update Cache
 resolver-->c: Requested Result
 deactivate resolver
