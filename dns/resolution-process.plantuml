@@ -1,27 +1,25 @@
 @startuml
 participant "Client" as c
-participant "Local \nNameServer" as lns
+participant "DNS Resolver" as resolver
 
 participant "root \nNameServer" as rns
 participant "edu \nNameServer" as tldns
 participant "googleplex.edu \nNameServer" as dns
 participant "compsci.googleplex.edu \nNameServer" as sns
 
-c->c: Check Resolver Cache
-c->lns: Recursive Query
-activate lns
-lns->lns: Check Cache
-lns->rns: Iterative Query to root
-rns-->lns: Name Server for .edu
-lns->tldns: Iterative Query to .edu
-tldns-->lns: Name Server for googleplex.edu
-lns->dns: Iterative Query to googleplex.edu
-dns-->lns: Name Server for compsci.googleplex.edu
-lns->sns: Iterative Query to compsci.googleplex.edu
-sns-->lns: IP Address for www.net.compsci.googleplex.edu
-lns->lns: Update Cache
-lns-->c: Requested IP Address
-deactivate lns
-c->c: Update Cache
+c->resolver: Recursive Query
+activate resolver
+resolver->resolver: Check Local Cache
+resolver->rns: Iterative Query to root
+rns-->resolver: Name Server for .edu
+resolver->tldns: Iterative Query to .edu
+tldns-->resolver: Name Server for googleplex.edu
+resolver->dns: Iterative Query to googleplex.edu
+dns-->resolver: Name Server for compsci.googleplex.edu
+resolver->sns: Iterative Query to compsci.googleplex.edu
+sns-->resolver: IP Address for www.net.compsci.googleplex.edu
+resolver->resolver: Update Cache
+resolver-->c: Requested Result
+deactivate resolver
 
 @enduml
