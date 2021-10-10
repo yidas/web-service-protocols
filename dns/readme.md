@@ -19,7 +19,7 @@ In theory, authoritative name servers are sufficient for the operation of the In
 
 ### Client lookup - DNS resolution sequence
 
-![DNS resolution sequence]https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/2560px-DNS_Architecture.svg.png)
+![DNS resolution sequence](https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/2560px-DNS_Architecture.svg.png)
 
 ---
 
