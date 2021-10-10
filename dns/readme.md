@@ -15,7 +15,7 @@ In theory, authoritative name servers are sufficient for the operation of the In
 
 ![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml&v=1)
 
-
+> DNS Resolver for example: [Google Public DNS - 8.8.8.8](https://developers.google.com/speed/public-dns)
 
 ---
 
