@@ -31,3 +31,5 @@ References
 [Wikipedia - HTTPS](https://en.wikipedia.org/wiki/HTTPS)
 
 [Wikipedia - TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake)
+
+[Moserware - The First Few Milliseconds of an HTTPS Connection](http://www.moserware.com/2009/06/first-few-milliseconds-of-https.html)
