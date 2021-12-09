@@ -18,7 +18,7 @@ OUTLINE
         <tr>
             <td rowspan=3>Application Layer</td>
             <td>Application Layer</td>
-            <td>FTP, [HTTP/HTTPS](http), Telnet, [DNS](dns)</td>
+            <td>FTP, <a href="http">HTTP/HTTPS</a>, Telnet, <a href="dns">DNS</a></td>
         </tr>
         <tr>
             <td>Presentation Layer</td>
@@ -31,7 +31,7 @@ OUTLINE
         <tr>
             <td>Transport Layer</td>
             <td>Transport Layer</td>
-            <td>[TCP](tcp), UDP</td>
+            <td><a href="tcp">TCP</a>, UDP</td>
         </tr>
         <tr>
             <td>Internet Layer</td>
