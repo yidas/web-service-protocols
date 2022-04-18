@@ -15,3 +15,5 @@ References
 [Wikipedia - Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)
 
 [RFC 4251 - The Secure Shell (SSH) Protocol Architecture](https://www.ietf.org/rfc/rfc4251.txt)
+
+[Wikibooks - OpenSSH/SSH Protocols](https://en.wikibooks.org/wiki/OpenSSH/SSH_Protocols)
