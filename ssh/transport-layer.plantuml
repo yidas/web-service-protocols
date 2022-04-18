@@ -4,24 +4,34 @@ participant "Client" as c
 participant "Server" as s
 
 ==TCP Handshake==
-c<->s: //Establish TCP Connection//
+c<-->s: [TCP] //Establish TCP Connection//
 ==SSH Handshake==
-c->s: **Portocol**\nSSH protocol version, softwareversion
-s->c: **Portocol**\nSSH protocol version, softwareversion
-c->s: **Key Exchange Init**
-s->c: **Key Exchange Init**
-c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init**\n Client public key
+c->s: **Portocol**\nSSH protocol version, softwareversion \n(ex. SSH-2.0-OpenSSH_8.3)
+s->c: **Portocol**\nSSH protocol version, softwareversion \n(ex. SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.3)
+c->s: **Key Exchange Init (20)** \n(SSH2_MSG_KEXINIT)
+s->c: **Key Exchange Init (20)** \n(SSH2_MSG_KEXINIT)
+c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init (30)**
 s->s: Compute shared secret
-s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply**\nServer public key\n**New Keys**\n**Encrypted Packet**
+s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply (31)**\n(SSH2_MSG_KEX_ECDH_REPLY)\n**New Keys (21)**\n**Encrypted Packet**\n(Server public key)
 c->c: Compute shared secret
-c->s: **New Keys**
+note over c: Check if host key is in **known_hosts**
+c->s: **New Keys (21)**\n(SSH2_MSG_NEWKEYS)\n**Encrypted Packet**
+s->c: **Encrypted Packet**\n(SSH2_MSG_NEWKEYS: type 21)
+s<->c: **Encrypted Packet**\n(type 5,7,6,50,51)
+c->s: **Encrypted Packet** \n(Client public key: type 50)
+alt if public key is in **authorized_keys** & auth succeeeded
+s->c: **Encrypted Packet** \n(Server accepts key: type 60)
+c->s: **Encrypted Packet** \n(Client sign_and_send_pubkey: type 50)
+s->c: **Encrypted Packet**\n(Authentication succeeded (publickey): type 52)
+else Else
+s<->c: **Encrypted Packet**\n(SSH-Auth)
+end
+s<->c: **Encrypted Packet**\n(SSH-CONN)
 
 ==Data Exchange==
-c->s: Encrypted Packet
-s->c: Encrypted Packet
+c<->s: **Encrypted Packet**
 
 ==Connection termination==
-c->s: Encrypted Packet
-c<->s: //Terminate TCP Connection//
+c<-->s: [TCP] //Terminate TCP Connection//
 
 @enduml
