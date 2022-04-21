@@ -6,18 +6,20 @@ c<->s: //Establish TCP Connection//
 ==TLS Handshake==
 c->s: **Client Hello**\nProtocol version, supported ciphers, a random number
 s->c: **Server Hello**\nChosen protocol version, a random number, Cipher Suite
-s->c: **Certificate**
-s->c: **Server Key Exchange, [Certificacte Request]. Server Hello Done**
+s->c: **Certificate**\n**Server Key Exchange** (For DH series cipher suites)\n**Server Hello Done**
+alt Client-authenticated Request
+s->c: **Certificate Request**
+end
 c->c: Verify Server Certificate (Extract public key)
-c->s: **Client Key Exchange**\nPreMasterSecret (Encrypted using the public key of the server certificate)
-alt Certificate Request
+c->s: **Client Key Exchange** (Depends on the selected cipher suite)\nPreMasterSecret (Encrypted using the public key of the server certificate)
+alt Client-authenticated Request
 c->s: **Certificate, Certifiacte Verify**\nSignature using the client's certificate's private key\n(Can be verified by using the client's certificate's public key)
 s->s: Verify signature
 end
 note over c, s: Compute MasterSecret by random numbers & PreMasterSecret
-c->s: **Change Cipher Spec, Encrpted Handshake Message**\n Finished message, derived from MasterSecret
+c->s: **Change Cipher Spec, Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
 s->s: Decrypt and verify
-s->c: **Change Cipher Spec, Encrpted Handshake Message**\n Finished message, derived from MasterSecret
+s->c: **Change Cipher Spec, Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
 c->c: Decrypt and verify
 ==Data Exchange==
 c->s: **Application Data**
