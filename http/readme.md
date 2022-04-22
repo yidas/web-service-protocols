@@ -27,7 +27,7 @@ Inciding Client-authenticated (Two-way SSL)
 - A client sends a **ClientHello** message specifying the highest TLS protocol version it supports, a random number, a list of suggested cipher suites and compression methods.
 - The server responds with a **ServerHello** message, containing the chosen protocol version, a random number, cipher suite and compression method from the choices offered by the client. The server may also send a session id as part of the message to perform a resumed handshake.
 - The server sends its **Certificate** message (depending on the selected cipher suite, this may be omitted by the server).
-- The server sends its **ServerKeyExchange** message (depending on the selected cipher suite, this may be omitted by the server). This message is sent for all DHE, ECDHE and DH_anon ciphersuites.[7]
+- The server sends its **ServerKeyExchange** message (depending on the selected cipher suite, this may be omitted by the server). This message is sent for all DHE, ECDHE and DH_anon ciphersuites.
 - The server sends a **CertificateRequest** message, to request a certificate from the client.
 - The server sends a **ServerHelloDone** message, indicating it is done with handshake negotiation.
 - The client responds with a **Certificate** message, which contains the client's certificate, but not it's private key.
