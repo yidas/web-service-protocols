@@ -21,6 +21,13 @@ In theory, authoritative name servers are sufficient for the operation of the In
 
 ![DNS resolution sequence](https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/DNS_Architecture.svg/2560px-DNS_Architecture.svg.png)
 
+
+### DNS transport protocols
+
+DNS has primarily answered queries on User Datagram Protocol (UDP) port number 53.Such queries consist of a clear-text request sent in a single UDP packet from the client, responded to with a clear-text reply sent in a single UDP packet from the server. When the length of the answer exceeds 512 bytes and both client and server support [Extension Mechanisms for DNS (EDNS)](https://en.wikipedia.org/wiki/Extension_Mechanisms_for_DNS), larger UDP packets may be used, or TCP instead.
+
+> Reference: [Wikipedia – DNS transport protocols](https://en.wikipedia.org/wiki/Domain_Name_System#DNS_transport_protocols)
+
 ---
 
 References
