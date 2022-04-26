@@ -36,7 +36,7 @@ OUTLINE
         <tr>
             <td>Internet Layer</td>
             <td>Network Layer</td>
-            <td>IPv4, IPv6</td>
+            <td>IPv4, IPv6, ICMP, IPSec</td>
         </tr>
         <tr>
             <td rowspan=2>Network Access Layer</td>
