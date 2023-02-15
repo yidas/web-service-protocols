@@ -42,6 +42,12 @@ Inciding Client-authenticated (Two-way SSL)
 - The client performs the same decryption and verification procedure as the server did in the previous step.
 4. Application phase: at this point, the "handshake" is complete and the application protocol is enabled, with content type of 23. Application messages exchanged between client and server will also be encrypted exactly like in their Finished message.
 
+### Server Name Indication (SNI)
+
+Server Name Indication (SNI) is an extension to the Transport Layer Security (TLS) computer networking protocol by which a client indicates which hostname it is attempting to connect to at the start of the handshaking process.
+
+[Server Name Indication - Wikipedia](https://en.wikipedia.org/wiki/Server_Name_Indication)
+
 ---
 
 References
