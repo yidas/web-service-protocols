@@ -1,7 +1,7 @@
 Web Service Principles
 ======================
 
-Web service principles and theories with UML diagram
+Theory and working principle of Web service protocols with UML diagram
 
 OUTLINE
 -------
