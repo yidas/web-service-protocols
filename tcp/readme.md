@@ -21,6 +21,12 @@ A TCP connection is managed by an operating system through a resource that repre
 
 ![Detailed Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/tcp/detailed-flow.plantuml)
 
+#### Reset Flag (RST)
+
+TCP segment structure > Flags (9 bits): RST (1 bit): Reset the connection
+
+> [TCP reset attack - Wikipedia](https://en.wikipedia.org/wiki/TCP_reset_attack)
+
 ---
 
 References
