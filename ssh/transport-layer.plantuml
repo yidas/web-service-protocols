@@ -15,19 +15,23 @@ s->s: Compute shared secret
 s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply (31)**\n(SSH2_MSG_KEX_ECDH_REPLY)\n**New Keys (21)**\n**Encrypted Packet**\n(Server public key)
 c->c: Compute shared secret
 note over c: Check if host key is in **known_hosts**
-c->s: **New Keys (21)**\n(SSH2_MSG_NEWKEYS)\n**Encrypted Packet**
-s->c: **Encrypted Packet**\n(SSH2_MSG_NEWKEYS: type 21)
-s<->c: **Encrypted Packet**\n(type 5,7,6,50,51)
-alt authentication method: publickey
+c->s: **New Keys (21)**\n(SSH2_MSG_NEWKEYS)\n**Encrypted Packet**\n(Should request verification: encrypt secret by publicKey)
+s->s: Should decrypt secret by privateKey
+s->c: **Encrypted Packet**\n(SSH2_MSG_NEWKEYS: type 21)\n(Should reply verification: hash by secret)
+c->c: Should verify hash for publicKey
+s<->c: **Encrypted Packet**\n(SSH2_MSG_EXT_INFO: type 5,7,6,50,51)
+alt authentication method: publicKey
 c->s: **Encrypted Packet** \n(Client public key: type 50)
 	note over s: Check if public key is in **authorized_keys**
 	alt if server accepts key
-	s->c: **Encrypted Packet** \n(Server accepts key: type 60)
-	c->s: **Encrypted Packet** \n(Client sign_and_send_pubkey: type 50)
-	s->c: **Encrypted Packet**\n(Authentication succeeded (publickey): type 52)
+	s->c: **Encrypted Packet** \n(Server accepts key: type 60)\n(Should request verification: encrypt secret by client-publicKey)
+	c->c: Should decrypt secret by client-privateKey
+	c->s: **Encrypted Packet** \n(Client sign_and_send_pubkey: type 50)\n(Should reply verification: hash by secret)
+	s->s: Should verify hash for client-publicKey
+	s->c: **Encrypted Packet**\n(Authentication succeeded (publicKey): type 52)
 	else Else
 	s->c: **Encrypted Packet**\n(type 51)
-	note over c: Loop offering other publickeys by default\n or until go to password method
+	note over c: Loop offering other publicKeys by default\n or until go to password method
 	end
 else authentication method: password
 c->s: **Encrypted Packet** \n(Client password packet: type 50)
