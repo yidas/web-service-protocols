@@ -5,7 +5,7 @@ SSH
 
 ## Transport Layer
 
-![Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/ssh/transport-layer.plantuml&v=2)
+![Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/ssh/transport-layer.plantuml&v=3)
 
 ---
 
