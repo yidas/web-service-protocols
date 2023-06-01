@@ -1,27 +1,27 @@
 HTTP
 ====
 
-### HTTP
+## HTTP
 
 The **Hypertext Transfer Protocol (HTTP)** is an application layer protocol for distributed, collaborative, hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web, where hypertext documents include hyperlinks to other resources that the user can easily access, for example by a mouse click or by tapping the screen in a web browser.
 
-#### Sequence Diagram
+### Sequence Diagram
 
 ![HTTP Flow](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/http-flow.plantuml)
 
 ---
 
-### HTTPS
+## HTTPS
 
 **Hypertext Transfer Protocol Secure (HTTPS)** is an extension of the Hypertext Transfer Protocol (HTTP). It is used for secure communication over a computer network, and is widely used on the Internet. In HTTPS, the communication protocol is encrypted using Transport Layer Security (TLS) or, formerly, Secure Sockets Layer (SSL). The protocol is therefore also referred to as **HTTP over TLS**, or **HTTP over SSL**.
 
-#### Sequence Diagram
+### Sequence Diagram
 
 Inciding Client-authenticated (Two-way SSL)
 
 ![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml&v=20210915)
 
-#### Handshake Steps
+### Handshake Steps
 
 1. Negotiation Phase:
 - A client sends a **ClientHello** message specifying the highest TLS protocol version it supports, a random number, a list of suggested cipher suites and compression methods.
@@ -48,6 +48,16 @@ Server Name Indication (SNI) is an extension to the Transport Layer Security (TL
 
 [Server Name Indication - Wikipedia](https://en.wikipedia.org/wiki/Server_Name_Indication)
 
+### Flow of different key exchange methods
+
+#### RSA key exchange
+
+![RSA](https://cf-assets.www.cloudflare.com/slt3lc6tev37/HMtyedlloYodaGnzxFcON/176dea4dbf1c8b4f3d58e6afd43ee9ea/ssl-handshake-rsa.jpg)
+
+#### Ephemeral Diffie-Hellman Key Exchange
+
+![Diffie-Hellman](https://cf-assets.www.cloudflare.com/slt3lc6tev37/1mzPVvjnKpVD0LUSsUlq2r/23c6dee053aaab22b122b53783dc098f/ssl-handshake-diffie-hellman.jpg)
+
 ---
 
 References
@@ -60,3 +70,5 @@ References
 [Wikipedia - TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake)
 
 [Moserware - The First Few Milliseconds of an HTTPS Connection](http://www.moserware.com/2009/06/first-few-milliseconds-of-https.html)
+
+[How does keyless SSL work? | Forward secrecy | Cloudflare](https://www.cloudflare.com/learning/ssl/keyless-ssl/)
