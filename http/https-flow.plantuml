@@ -5,25 +5,38 @@ participant "Server" as s
 c<->s: //Establish TCP Connection//
 ==TLS Handshake (v1.2)==
 c->s: **Client Hello (1)**\n Version, Random, Session ID, Ciphers Suites, Extensions (server_name)
-s->c: **Server Hello (2)**\n Version, Random, Session ID, Ciphers Suite, Extensions
-s->c: **Certificate (11)**\n**Server Key Exchange (12)** (For DH series cipher suites)\n**Server Hello Done (14)**
-alt Client-authenticated Request
-s->c: **Certificate Request (13)** \nSignature Hash Algorithms, Distinguished Names
+s->c: **Server Hello (2)**\n Version, Random (Server), Session ID, Ciphers Suite, Extensions
+s->c: **Certificate (11)**
+note right c: Verify server certificate
+alt Diffie-Hellman Key Exchange
+  note left s: Generate server mixture & sign with privateKey
+  s->c: **Server Key Exchange (12)** \nServer mixture, signature
+  note right c: Verify signature by server certificate's publicKey
 end
-c->c: Verify Server Certificate (Extract public key)
-c->s: **Client Key Exchange (16)** (Depends on the selected cipher suite)\nPreMasterSecret (Encrypted using the public key of the server certificate)
-alt Client-authenticated Request
-c->s: **Certificate (11), Certifiacte Verify (15)**\nSignature using the client's certificate's private key\n(Can be verified by using the client's certificate's public key)
-s->s: Verify signature
+alt Client-authenticated Required
+  s->c: **Certificate Request (13)** \nSignature Hash Algorithms, Distinguished Names
 end
-note over c, s: Compute MasterSecret by random numbers & PreMasterSecret
-c->s: **Change Cipher Spec (20), Encrpted Handshake Message (22)**\n Encrypted Finished message, containing a hash and MAC
-s->s: Decrypt and verify
-s->c: **Change Cipher Spec (20), Encrpted Handshake Message (22)**\n Encrypted Finished message, containing a hash and MAC
-c->c: Decrypt and verify
+s->c: **Server Hello Done (14)**
+alt Client-authenticated Required
+  c->s: **Certificate (11)** \n**Certifiacte Verify (15)**\nSignature (signed by client certificate's privateKey)
+  note left s: Verify signature by client certificate's publicKey
+end
+alt Diffie-Hellman Key Exchange
+  note right c: Generate client mixture & compute PreMasterSecret
+  c->s: **Client Key Exchange (16)** \nClient mixture
+  note left s: Compute PreMasterSecret
+else RSA Key Exchange
+  c->s: **Client Key Exchange (16)** \nPreMasterSecret (encrypted by server certificate's publicKey)
+  note left s: Decrypt PreMasterSecret by server certificate's privateKey
+end
+note over c, s: Compute SessionKey (MasterSecret) by random numbers & PreMasterSecret
+c->s: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
+note left s: Decrypt and verify by SessionKey
+s->c: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
+note right c: Decrypt and verify by SessionKey
 ==Data Exchange==
-c->s: **Application Data**
-s->c: **Application Data**
+c->s: **Application Data** \n(encrypted by SessionKey)
+s->c: **Application Data** \n(encrypted by SessionKey)
 ==Connection termination==
 c->s: **Encrypted Alert**
 c<->s: //Terminate TCP Connection//
