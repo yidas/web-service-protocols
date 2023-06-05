@@ -5,33 +5,35 @@ participant "Server" as s
 
 ==TCP Handshake==
 c<-->s: [TCP] //Establish TCP Connection//
-==SSH Handshake==
+==SSH Handshake (DH series)==
 c->s: **Portocol**\nSSH protocol version, softwareversion \n(ex. SSH-2.0-OpenSSH_8.3)
 s->c: **Portocol**\nSSH protocol version, softwareversion \n(ex. SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.3)
-c->s: **Key Exchange Init (20)** \n(SSH2_MSG_KEXINIT)
-s->c: **Key Exchange Init (20)** \n(SSH2_MSG_KEXINIT)
-c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init (30)**
-s->s: Compute shared secret
-s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply (31)**\n(SSH2_MSG_KEX_ECDH_REPLY)\n**New Keys (21)**\n**Encrypted Packet**\n(Server public key)
-c->c: Compute shared secret
-note over c: Check if host key is in **known_hosts**
-c->s: **New Keys (21)**\n(SSH2_MSG_NEWKEYS)\n**Encrypted Packet**\n(Should request verification: encrypt secret by publicKey)
-s->s: Should decrypt secret by privateKey
-s->c: **Encrypted Packet**\n(SSH2_MSG_NEWKEYS: type 21)\n(Should reply verification: hash by secret)
-c->c: Should verify hash for publicKey
+c->s: **Key Exchange Init (20)** \nkex_algorithms, server_host_key_algorithms \n(SSH2_MSG_KEXINIT)
+s->c: **Key Exchange Init (20)** \nkex_algorithms, server_host_key_algorithms \n(SSH2_MSG_KEXINIT)
+alt "Diffie–Hellman"
+  c->s: **Diffie-Hellman Key Exchange Init (30)** \nOpenSSH Kex_algorithm, DH client e
+  s->c: **Diffie-Hellman Key Exchange Reply (31)**\nOpenSSH Kex_algorithm, KEX host key, DH server f, KEX host signature\n(SSH2_MSG_KEX_ECDH_REPLY)
+else "Elliptic Curve Diffie–Hellman"
+  c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init (30)** \nOpenSSH Kex_algorithm, ECDH client tmp pubKey (Q_C)
+  s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply (31)**\nOpenSSH Kex_algorithm, KEX host key, ECDH server tmp pubKey (Q_S), KEX host signature\n(SSH2_MSG_KEX_ECDH_REPLY)
+end
+note right c: Verify signature & check if host key is in **known_hosts**
+note over c, s: Compute SessionKey (MasterSecret)
+s -> c: **New Keys (21)**\n(SSH2_MSG_NEWKEYS) \n**Encrypted Packet**
+c->s: **New Keys (21)**\n(SSH2_MSG_NEWKEYS)\n**Encrypted Packet**
+note over c, s: Decrypt and verify by SessionKey
 s<->c: **Encrypted Packet**\n(SSH2_MSG_EXT_INFO: type 5,7,6,50,51)
 alt authentication method: publicKey
 c->s: **Encrypted Packet** \n(Client public key: type 50)
-	note over s: Check if public key is in **authorized_keys**
+	note left s: Check if public key is in **authorized_keys**
 	alt if server accepts key
-	s->c: **Encrypted Packet** \n(Server accepts key: type 60)\n(Should request verification: encrypt secret by client-publicKey)
-	c->c: Should decrypt secret by client-privateKey
-	c->s: **Encrypted Packet** \n(Client sign_and_send_pubkey: type 50)\n(Should reply verification: hash by secret)
-	s->s: Should verify hash for client-publicKey
+	s->c: **Encrypted Packet** \n(Server accepts key: type 60)
+	c->s: **Encrypted Packet** \nSignature (signed by client's privateKey) \n(sign_and_send_pubkey: type 50)
+	note left s: Verify signature by client's publicKey
 	s->c: **Encrypted Packet**\n(Authentication succeeded (publicKey): type 52)
 	else Else
 	s->c: **Encrypted Packet**\n(type 51)
-	note over c: Loop offering other publicKeys by default\n or until go to password method
+	note right c: Loop offering other publicKeys by default\n or until go to password method
 	end
 else authentication method: password
 c->s: **Encrypted Packet** \n(Client password packet: type 50)
