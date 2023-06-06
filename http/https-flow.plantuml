@@ -8,9 +8,14 @@ c->s: **Client Hello (1)**\n Version, Random, Session ID, Ciphers Suites, Extens
 s->c: **Server Hello (2)**\n Version, Random (Server), Session ID, Ciphers Suite, Extensions
 s->c: **Certificate (11)**
 note right c: Verify server certificate
-alt Diffie-Hellman Key Exchange
-  note left s: Generate server mixture & sign with privateKey
-  s->c: **Server Key Exchange (12)** \nServer mixture, signature
+alt Diffie-Hellman series Key Exchange
+  alt Diffie-Hellman Exchange
+    note left s: Generate server DH public & sign with privateKey
+    s->c: **Server Key Exchange (12)** \nDH p, DH g, server DH public, signature
+  else Elliptic Curve Diffie-Hellman Exchange
+    note left s: Generate server ECDH pubKey & sign with privateKey
+    s->c: **Server Key Exchange (12)** \nECDH pubKey, signature
+  end
   note right c: Verify signature by server certificate's publicKey
 end
 alt Client-authenticated Required
@@ -21,9 +26,14 @@ alt Client-authenticated Required
   c->s: **Certificate (11)** \n**Certifiacte Verify (15)**\nSignature (signed by client certificate's privateKey)
   note left s: Verify signature by client certificate's publicKey
 end
-alt Diffie-Hellman Key Exchange
-  note right c: Generate client mixture & compute PreMasterSecret
-  c->s: **Client Key Exchange (16)** \nClient mixture
+alt Diffie-Hellman series Key Exchange
+  alt Diffie-Hellman Exchange
+    note right c: Generate client DH public & compute PreMasterSecret
+    c->s: **Client Key Exchange (16)** \nClient DH public
+  else Elliptic Curve Diffie-Hellman Exchange
+    note right c: Generate client ECDH pubKey & compute PreMasterSecret
+    c->s: **Client Key Exchange (16)** \nClient ECDH pubKey
+  end
   note left s: Compute PreMasterSecret
 else RSA Key Exchange
   c->s: **Client Key Exchange (16)** \nPreMasterSecret (encrypted by server certificate's publicKey)
@@ -31,10 +41,9 @@ else RSA Key Exchange
 end
 note over c, s: Compute SessionKey (MasterSecret) by random numbers & PreMasterSecret
 c->s: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
-note left s: Decrypt and verify by SessionKey
 s->c: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
-note right c: Decrypt and verify by SessionKey
-==Data Exchange==
+note over c, s: Decrypt and verify by SessionKey
+==HTTP Data Exchange==
 c->s: **Application Data** \n(encrypted by SessionKey)
 s->c: **Application Data** \n(encrypted by SessionKey)
 ==Connection termination==
