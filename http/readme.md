@@ -19,7 +19,7 @@ The **Hypertext Transfer Protocol (HTTP)** is an application layer protocol for 
 
 Inciding Client-authenticated (Two-way SSL)
 
-![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml&v=20230602)
+![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml&v=20230606)
 
 ### Handshake Steps
 
