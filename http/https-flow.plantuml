@@ -14,7 +14,7 @@ alt Diffie-Hellman series Key Exchange
     s->c: **Server Key Exchange (12)** \nDH p, DH g, server DH public, signature
   else Elliptic Curve Diffie-Hellman Exchange
     note left s: Generate server ECDH pubKey & sign with privateKey
-    s->c: **Server Key Exchange (12)** \nECDH pubKey, signature
+    s->c: **Server Key Exchange (12)** \n Curve type, Named curve, ECDH pubKey, signature
   end
   note right c: Verify signature by server certificate's publicKey
 end
