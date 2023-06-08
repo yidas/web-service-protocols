@@ -11,8 +11,14 @@ s->c: **Portocol**\nSSH protocol version, softwareversion \n(ex. SSH-2.0-OpenSSH
 c->s: **Key Exchange Init (20)** \nkex_algorithms, server_host_key_algorithms \n(SSH2_MSG_KEXINIT)
 s->c: **Key Exchange Init (20)** \nkex_algorithms, server_host_key_algorithms \n(SSH2_MSG_KEXINIT)
 alt "Diffie–Hellman"
-  c->s: **Diffie-Hellman Key Exchange Init (30)** \nOpenSSH Kex_algorithm, DH client e
-  s->c: **Diffie-Hellman Key Exchange Reply (31)**\nOpenSSH Kex_algorithm, KEX host key, DH server f, KEX host signature\n(SSH2_MSG_KEX_ECDH_REPLY)
+  alt Group Exchange kex
+    c->s: **Diffie-Hellman Group Exchange Request (34)** \nDH GEX Min, DH GEX Number, DH GEX Max
+    s->c: **Diffie-Hellman Group Exchange Group (31)** \nDH GEX modulus (P), DH GEX base (G)
+  else Else
+    note over c, s: Use DH g, DH p from the standard of choosen group
+  end
+  c->s: **Diffie-Hellman Key Exchange Init (30) / (32)** \nOpenSSH Kex_algorithm, DH client e (Public)
+  s->c: **Diffie-Hellman Key Exchange Reply (31) / (33)**\nOpenSSH Kex_algorithm, KEX host key, DH server f (Public), KEX host signature\n(SSH2_MSG_KEX_ECDH_REPLY)
 else "Elliptic Curve Diffie–Hellman"
   c->s: **Elliptic Curve Diffie-Hellman Key Exchange Init (30)** \nOpenSSH Kex_algorithm, ECDH client tmp pubKey (Q_C)
   s->c: **Elliptic Curve Diffie-Hellman Key Exchange Reply (31)**\nOpenSSH Kex_algorithm, KEX host key, ECDH server tmp pubKey (Q_S), KEX host signature\n(SSH2_MSG_KEX_ECDH_REPLY)
