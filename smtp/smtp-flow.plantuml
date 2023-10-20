@@ -1,0 +1,64 @@
+@startuml
+participant "MUA" as c
+participant "MTA" as s
+participant "MTA" as r
+==TCP Handshake==
+c<->s: //Establish TCP Connection//
+
+==SMTP==
+s->c: **220** - Server info \n(ex.220-sender.com ESMTP Exim 4.96.1 #2 {ISO 8601 Datetime})
+c->s: **EHLO**
+s->c: **250** - Hello \n  (ex. 250-sender.com Hello client.com [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-PIPELINING \n  250-PIPECONNECT \n  250-AUTH PLAIN LOGIN \n  250-STARTTLS \n  250 HELP)
+c->s: **STARTTLS**
+s->c: **220 TLS go ahead**
+s<->c: //Establish TLS Handshake//
+c->s: **EHLO**
+s->c: **250** - Hello \n  (ex. 250-sender.com Hello client.com [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-PIPELINING \n  250-PIPECONNECT \n  250-AUTH PLAIN LOGIN \n  250 HELP)
+c->s: **AUTH LOGIN**
+s->c: **334** VXNlcm5hbWU6
+c->s: Username in base64
+s->c: **334** UGFzc3dvcmQ6
+c->s: Password in base64
+s->c: **235 Authentication succeeded**
+c->s: MAIL FROM:<mail@sender.com>
+s->c: **250 OK**
+c->s: RCPT TO:<mail@receiver.com>
+s->c: **250 Accepted**
+c->s: DATA
+s->c: **354** Enter message, ending with "." on a line by itself
+c->s: Date: {ISO 8601 Datetime} \nTo: Receiver <mail@receiver.com> \nFrom: Sender <mail@sender.com> \nSubject: =?UTF-8?B?{base64_string}?= \nMessage-ID: <RegtjsWEWpnkuaa0Eke5K880t0nNU1lM711laYV2M@sender.com> \nMIME-Version: 1.0 \nContent-Type: text/plain; charset=utf-8 \nemail body \n.
+s->c: **250 OK** id=1qfhB7-008DAl-13
+c->s: **QUIT**
+s->c: **221** sender.com closing connection
+
+==Connection termination==
+c<->s: //Terminate TCP Connection//
+
+
+
+==TCP Handshake==
+s<->r: //Establish TCP Connection//
+
+==SMTP==
+r->s: **220** - Server info \n(ex.220 receiver.com ESMTP)
+s->r: **EHLO**
+r->s: **250** \n  (ex. 250-receiver.com at your service, [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-STARTTLS \n  250-ENHANCEDSTATUSCODES \n  250-PIPELINING \n  250-CHUNKING \n  250-SMTPUTF8)
+s->r: **STARTTLS**
+r->s: **220** 2.0.0 Ready to start TLS
+s<->r: //Establish TLS Handshake//
+s->r: **EHLO**
+r->s: **250** \n  (ex. 250-receiver.com at your service, [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-ENHANCEDSTATUSCODES \n  250-PIPELINING \n  250-CHUNKING \n  250-SMTPUTF8)
+s->r: MAIL FROM:<mail@sender.com> SIZE=368 \nRCPT TO:<mail@receiver.com> \nDATA
+r->s: **250** 2.1.0 OK
+r->s: **250** 2.1.5 OK
+r->s: **354**  Go ahead
+s->r: Received: by sender.com (Postfix, from userid 1000)... \nDKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=... \nSubject: Subject \nTo: <mail@receiver.com> \nMessage-Id: <YYYYMMDD074816.434A2B050C@sender.com> \nDate: {ISO 8601 Datetime} (CST) \nFrom: mail@sender.com \n \nemail body \n. \nQUIT \n
+r->s: **250** 2.0.0 OK
+r->s: **221** 2.0.0 closing connection
+
+
+
+==Connection termination==
+s<->r: //Terminate TCP Connection//
+
+@enduml
