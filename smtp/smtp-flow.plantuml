@@ -11,7 +11,7 @@ c->s: **EHLO**
 s->c: **250** - Hello \n  (ex. 250-sender.com Hello client.com [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-PIPELINING \n  250-PIPECONNECT \n  250-AUTH PLAIN LOGIN \n  250-STARTTLS \n  250 HELP)
 c->s: **STARTTLS**
 s->c: **220 TLS go ahead**
-s<->c: //Establish TLS Handshake//
+s<->c: //Establish TLS Handshake (The following is plain text)//
 c->s: **EHLO**
 s->c: **250** - Hello \n  (ex. 250-sender.com Hello client.com [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-PIPELINING \n  250-PIPECONNECT \n  250-AUTH PLAIN LOGIN \n  250 HELP)
 c->s: **AUTH LOGIN**
@@ -45,7 +45,7 @@ s->r: **EHLO**
 r->s: **250** \n  (ex. 250-receiver.com at your service, [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-STARTTLS \n  250-ENHANCEDSTATUSCODES \n  250-PIPELINING \n  250-CHUNKING \n  250-SMTPUTF8)
 s->r: **STARTTLS**
 r->s: **220** 2.0.0 Ready to start TLS
-s<->r: //Establish TLS Handshake//
+s<->r: //Establish TLS Handshake (The following is plain text)//
 s->r: **EHLO**
 r->s: **250** \n  (ex. 250-receiver.com at your service, [IP] \n  250-SIZE 78643200 \n  250-8BITMIME \n  250-ENHANCEDSTATUSCODES \n  250-PIPELINING \n  250-CHUNKING \n  250-SMTPUTF8)
 s->r: MAIL FROM:<mail@sender.com> SIZE=368 \nRCPT TO:<mail@receiver.com> \nDATA
