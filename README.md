@@ -18,7 +18,7 @@ OUTLINE
         <tr>
             <td rowspan=3>Application Layer</td>
             <td>Application Layer</td>
-            <td>FTP, <a href="http">HTTP/HTTPS</a>, Telnet, <a href="dns">DNS</a>, <a href="ssh">SSH</a>, SMTP</td>
+            <td>FTP, <a href="http">HTTP/HTTPS</a>, Telnet, <a href="dns">DNS</a>, <a href="ssh">SSH</a>, <a href="smtp">SMTP</a></td>
         </tr>
         <tr>
             <td>Presentation Layer</td>
@@ -55,10 +55,13 @@ OUTLINE
   
 - [HTTP/HTTPS](http)  
   Hypertext Transfer Protocol
+
+- [SMTP](smtp)  
+  Simple Mail Transfer Protocol 
   
 - [SSH](ssh)  
   Secure Shell
-
+  
 - [TCP](tcp)  
   Transmission Control Protocol 
   
