@@ -48,13 +48,29 @@ Server Name Indication (SNI) is an extension to the Transport Layer Security (TL
 
 [Server Name Indication - Wikipedia](https://en.wikipedia.org/wiki/Server_Name_Indication)
 
-### Flow of different key exchange methods
+### Key exchange/agreement and authentication
 
-#### RSA key exchange
+- [Key exchange/agreement and authentication (With version support list) - Wikipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security#Key_exchange_or_key_agreement)
+
+| Algorithm       | Key Exchange        | DH Key Type     | Cert Signature | [Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy) | Notes                                        |
+|-----------------|---------------------|------------------|----------------|------------------|----------------------------------------------|
+| RSA             | RSA (Encrypted PMS) | ❌ (None)        | RSA            | ❌ No             | Pre-master secret encrypted with RSA pubkey  |
+| DH-RSA          | Static DH           | ✅ Static DH     | RSA            | ❌ No             | Certificate includes static DH key           |
+| DHE-RSA         | Ephemeral DH        | ✅ Ephemeral DH  | RSA            | ✅ Yes            | Most common DH setup with RSA cert           |
+| DH-DSS          | Static DH           | ✅ Static DH     | DSS            | ❌ No             | Rarely used                                   |
+| DHE-DSS         | Ephemeral DH        | ✅ Ephemeral DH  | DSS            | ✅ Yes            | DSS = DSA signature                          |
+| ECDH-RSA        | Static ECDH         | ✅ Static ECDH   | RSA            | ❌ No             | Rare; cert includes static ECDH key          |
+| ECDHE-RSA       | Ephemeral ECDH      | ✅ Ephemeral ECDH| RSA            | ✅ Yes            | Common in modern TLS                         |
+| ECDH-ECDSA      | Static ECDH         | ✅ Static ECDH   | ECDSA          | ❌ No             | Uncommon                                      |
+| ECDHE-ECDSA     | Ephemeral ECDH      | ✅ Ephemeral ECDH| ECDSA          | ✅ Yes            | Common in systems using ECDSA certs          |
+
+#### Flow of different key exchange methods
+
+##### RSA key exchange
 
 ![RSA](https://cf-assets.www.cloudflare.com/slt3lc6tev37/HMtyedlloYodaGnzxFcON/176dea4dbf1c8b4f3d58e6afd43ee9ea/ssl-handshake-rsa.jpg)
 
-#### Ephemeral Diffie-Hellman Key Exchange
+##### Ephemeral Diffie-Hellman Key Exchange
 
 ![Diffie-Hellman](https://cf-assets.www.cloudflare.com/slt3lc6tev37/1mzPVvjnKpVD0LUSsUlq2r/23c6dee053aaab22b122b53783dc098f/ssl-handshake-diffie-hellman.jpg)
 
