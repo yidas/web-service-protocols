@@ -52,17 +52,19 @@ Server Name Indication (SNI) is an extension to the Transport Layer Security (TL
 
 - [Key exchange/agreement and authentication (With version support list) - Wikipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security#Key_exchange_or_key_agreement)
 
-| Algorithm       | Key Exchange        | DH Key Type     | Cert Signature | [Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy) | Notes                                        |
-|-----------------|---------------------|------------------|----------------|------------------|----------------------------------------------|
-| RSA             | RSA (Encrypted PMS) | ❌ (None)        | RSA            | ❌ No             | Pre-master secret encrypted with RSA pubkey  |
-| DH-RSA          | Static DH           | ✅ Static DH     | RSA            | ❌ No             | Certificate includes static DH key           |
-| DHE-RSA         | Ephemeral DH        | ✅ Ephemeral DH  | RSA            | ✅ Yes            | Most common DH setup with RSA cert           |
-| DH-DSS          | Static DH           | ✅ Static DH     | DSS            | ❌ No             | Rarely used                                   |
-| DHE-DSS         | Ephemeral DH        | ✅ Ephemeral DH  | DSS            | ✅ Yes            | DSS = DSA signature                          |
-| ECDH-RSA        | Static ECDH         | ✅ Static ECDH   | RSA            | ❌ No             | Rare; cert includes static ECDH key          |
-| ECDHE-RSA       | Ephemeral ECDH      | ✅ Ephemeral ECDH| RSA            | ✅ Yes            | Common in modern TLS                         |
-| ECDH-ECDSA      | Static ECDH         | ✅ Static ECDH   | ECDSA          | ❌ No             | Uncommon                                      |
-| ECDHE-ECDSA     | Ephemeral ECDH      | ✅ Ephemeral ECDH| ECDSA          | ✅ Yes            | Common in systems using ECDSA certs          |
+| Algorithm       | Key Exchange        | DH Key Type     | [Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy) <br/>(Ephemeral Key) | Cert Signature | Notes                                        |
+|-----------------|---------------------|-----------------|---------------------------------|----------------|----------------------------------------------|
+| RSA             | RSA (Encrypted PMS) | ❌ (None)        | ❌ No                           | RSA            | Pre-master secret encrypted with RSA pubkey  |
+| DH-RSA          | Static DH           | ✅ Static DH     | ❌ No                           | RSA            | Certificate includes static DH key           |
+| DHE-RSA         | Ephemeral DH        | ✅ Ephemeral DH  | ✅ Yes                          | RSA            | Most common DH setup with RSA cert           |
+| DH-DSS          | Static DH           | ✅ Static DH     | ❌ No                           | DSS            | Rarely used                                   |
+| DHE-DSS         | Ephemeral DH        | ✅ Ephemeral DH  | ✅ Yes                          | DSS            | DSS = DSA signature                          |
+| ECDH-RSA        | Static ECDH         | ✅ Static ECDH   | ❌ No                           | RSA            | Rare; cert includes static ECDH key          |
+| ECDHE-RSA       | Ephemeral ECDH      | ✅ Ephemeral ECDH| ✅ Yes                          | RSA            | Common in modern TLS                         |
+| ECDH-ECDSA      | Static ECDH         | ✅ Static ECDH   | ❌ No                           | ECDSA          | Uncommon                                      |
+| ECDHE-ECDSA     | Ephemeral ECDH      | ✅ Ephemeral ECDH| ✅ Yes                          | ECDSA          | Common in systems using ECDSA certs          |
+| x25519          | Ephemeral x25519    | ✅ Ephemeral x25519| ✅ Yes                        | EdDSA          | Modern, fast, secure; widely used in TLS 1.3 |
+
 
 #### Flow of different key exchange methods
 
