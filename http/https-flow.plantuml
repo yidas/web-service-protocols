@@ -9,13 +9,11 @@ s->c: **Server Hello (2)**\n Version, Random (Server), Session ID, Ciphers Suite
 s->c: **Certificate (11)**
 note right c: Verify server certificate
 alt Diffie-Hellman series Key Exchange
-  alt Diffie-Hellman Exchange
-    note left s: Generate server DH public & sign with privateKey
-    s->c: **Server Key Exchange (12)** \nDH p, DH g, server DH public, signature
-  else Elliptic Curve Diffie-Hellman Exchange
-    note left s: Generate server ECDH pubKey & sign with privateKey
-    s->c: **Server Key Exchange (12)** \n Curve type, Named curve, ECDH pubKey, signature
-  end
+  alt Static Diffie-Hellman-based key exchange (DH/ECDH)
+    note right c: Extract static public key and signed key exchange data \n(e.g., DH p/g or curve info, public key, signature)
+  else Ephemeral Diffie-Hellman-based key exchange (DHE/ECDHE/X25519)
+    note left s: Generate ephemeral key pair \n(e.g., p, g for DHE or curve info, private key), \ncompute public key, \nand sign key exchange data with certificate private key
+    s->c: **Server Key Exchange (12)** \nEphemeral public key and signed key exchange data \n(e.g., DH p/g or curve info, public key, signature)
   note right c: Verify signature by server certificate's publicKey
 end
 alt Client-authenticated Required
@@ -27,19 +25,15 @@ alt Client-authenticated Required
   note left s: Verify signature by client certificate's publicKey
 end
 alt Diffie-Hellman series Key Exchange
-  alt Diffie-Hellman Exchange
-    note right c: Generate client DH public & compute PreMasterSecret
-    c->s: **Client Key Exchange (16)** \nClient DH public
-  else Elliptic Curve Diffie-Hellman Exchange
-    note right c: Generate client ECDH pubKey & compute PreMasterSecret
-    c->s: **Client Key Exchange (16)** \nClient ECDH pubKey
-  end
-  note left s: Compute PreMasterSecret
+  note right c: Generate a client ephemeral private key, compute the public key, \nand derive the shared secret (PreMasterSecret)
+  c->s: **Client Key Exchange (16)** \nClient ephemeral public key (e.g., DH public value)
+  note left s: Derive PreMasterSecret
 else RSA Key Exchange
+  note right c: Generate PreMasterSecret
   c->s: **Client Key Exchange (16)** \nPreMasterSecret (encrypted by server certificate's publicKey)
   note left s: Decrypt PreMasterSecret by server certificate's privateKey
 end
-note over c, s: Compute SessionKey (MasterSecret) by random numbers & PreMasterSecret
+note over c, s: Derive encryption keys (SessionKey) based on the PreMasterSecret and random values
 c->s: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
 s->c: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
 note over c, s: Decrypt and verify by SessionKey
