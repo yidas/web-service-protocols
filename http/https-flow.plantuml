@@ -7,7 +7,7 @@ c<->s: //Establish TCP Connection//
 c->s: **Client Hello (1)**\n Version, Random, Session ID, Ciphers Suites, Extensions (server_name)
 s->c: **Server Hello (2)**\n Version, Random (Server), Session ID, Ciphers Suite, Extensions
 s->c: **Certificate (11)**
-note right c: Verify server certificate
+note right c: Verifiy the server certificate against its trust store, \nincluding the certificate chain up to a trusted CA.
 alt Diffie-Hellman series Key Exchange
   alt Static Diffie-Hellman-based key exchange (DH/ECDH)
     note right c: Extract static public key and signed key exchange data \n(e.g., DH p/g or curve info, public key, signature)
@@ -16,13 +16,13 @@ alt Diffie-Hellman series Key Exchange
     s->c: **Server Key Exchange (12)** \nEphemeral public key and signed key exchange data \n(e.g., DH p/g or curve info, public key, signature)
   note right c: Verify signature by server certificate's publicKey
 end
-alt Client-authenticated Required
+alt Client-authentication Required
   s->c: **Certificate Request (13)** \nSignature Hash Algorithms, Distinguished Names
 end
 s->c: **Server Hello Done (14)**
-alt Client-authenticated Required
-  c->s: **Certificate (11)** \n**Certifiacte Verify (15)**\nSignature (signed by client certificate's privateKey)
-  note left s: Verify signature by client certificate's publicKey
+alt Client-authentication Required
+  c->s: **Certificate (11)**
+  note left of s: Verify client certificate against configured CA certificate
 end
 alt Diffie-Hellman series Key Exchange
   note right c: Generate a client ephemeral private key, compute the public key, \nand derive the shared secret (PreMasterSecret)
@@ -32,6 +32,11 @@ else RSA Key Exchange
   note right c: Generate PreMasterSecret
   c->s: **Client Key Exchange (16)** \nPreMasterSecret (encrypted by server certificate's publicKey)
   note left s: Decrypt PreMasterSecret by server certificate's privateKey
+end
+alt Client-authentication Required
+  note right of c: Sign previous handshake messages with the certificate's private key
+  c -> s: **Certificate Verify (15)**\nSignature (signed by the client's certificate private key)
+  note left of s: Verify the signature with the client's certificate public key
 end
 note over c, s: Derive encryption keys (SessionKey) based on the PreMasterSecret and random values
 c->s: **Change Cipher Spec (20), Encrpted Handshake Message**\n Encrypted Finished message, containing a hash and MAC
