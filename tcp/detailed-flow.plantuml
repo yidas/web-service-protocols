@@ -12,11 +12,12 @@ note left: ESTABLISHED
 c->s: [ACK] Seq=x+1, ACK y+1
 note right: ESTABLISHED
 == Data Exchange ==
+note left c: write() starts
 c->s: Application data\n[PSH, ACK] Seq=x+1, ACK=y+1
-note left: (write())
+note left c: write() returns\nread() starts
 s-->c: [ACK] Seq=y+1, ACK=a(x+Len)
 s->c: Application data\n[PSH, ACK] Seq=y+1, ACK=a(x+Len)
-note right: (read())
+note left c: read() returns
 c-->s: [ACK] Seq=a, ACK=b(y+1+Len)
 ==TCP Termination==
 c->s: [FIN, ACK] Seq=a, ACK=b(y+1+Len)
