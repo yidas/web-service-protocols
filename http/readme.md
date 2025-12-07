@@ -17,11 +17,11 @@ The **Hypertext Transfer Protocol (HTTP)** is an application layer protocol for 
 
 ### Sequence Diagram
 
-Inciding Client-authenticated (Two-way SSL)
+TLS 1.2 Inciding Client-authenticated (Two-way SSL)
 
 ![HTTPS Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/http/https-flow.plantuml)
 
-### Handshake Steps
+### Handshake Steps (TLS 1.2)
 
 1. Negotiation Phase:
 - A client sends a **ClientHello** message specifying the highest TLS protocol version it supports, a random number, a list of suggested cipher suites and compression methods.
@@ -76,17 +76,31 @@ Server Name Indication (SNI) is an extension to the Transport Layer Security (TL
 
 ![Diffie-Hellman](https://cf-assets.www.cloudflare.com/slt3lc6tev37/1mzPVvjnKpVD0LUSsUlq2r/23c6dee053aaab22b122b53783dc098f/ssl-handshake-diffie-hellman.jpg)
 
+### TLS 1.3
+
+TLS 1.2 vs TLS 1.3: Key Differences
+
+TLS 1.3 introduces several improvements over previous versions, including a faster handshake and simplified, more secure cipher suites. The addition of Zero Round-Trip Time (0-RTT) key exchanges further accelerates the handshake process. Together, these enhancements provide better performance and stronger security.
+
+![](https://www.a10networks.com/wp-content/uploads/differences-between-tls-1.2-and-tls-1.3-full-handshake.png)
+
+#### How it combines the key exchange steps
+
+In TLS 1.3, the client generates an ephemeral key pair for each supported key exchange group. Only the server-selected group is used for the handshake; the others are discarded. At first glance, this may seem like extra computation, but it reduces handshake round-trips and ensures compatibility with multiple cipher suites.
+
 ---
 
 References
 ----------
 
-[Wikipedia - Hypertext Transfer Protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+- [Wikipedia - Hypertext Transfer Protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 
-[Wikipedia - HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+- [Wikipedia - HTTPS](https://en.wikipedia.org/wiki/HTTPS)
 
-[Wikipedia - TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake)
+- [Wikipedia - TLS handshake](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_handshake)
 
-[Moserware - The First Few Milliseconds of an HTTPS Connection](http://www.moserware.com/2009/06/first-few-milliseconds-of-https.html)
+- [Moserware - The First Few Milliseconds of an HTTPS Connection](http://www.moserware.com/2009/06/first-few-milliseconds-of-https.html)
 
-[How does keyless SSL work? | Forward secrecy | Cloudflare](https://www.cloudflare.com/learning/ssl/keyless-ssl/)
+- [How does keyless SSL work? | Forward secrecy | Cloudflare](https://www.cloudflare.com/learning/ssl/keyless-ssl/)
+
+- [Key differences Between TLS 1.2 and TLS 1.3](https://www.a10networks.com/glossary/key-differences-between-tls-1-2-and-tls-1-3/)
