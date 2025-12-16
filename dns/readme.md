@@ -13,7 +13,7 @@ In theory, authoritative name servers are sufficient for the operation of the In
 
 #### Sequence Diagram
 
-![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml&v=1)
+![Resolution Process](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/yidas/web-service-principles/main/dns/resolution-process.plantuml&v=2)
 
 > DNS Resolver for example: [Google Public DNS - 8.8.8.8](https://developers.google.com/speed/public-dns)
 
@@ -36,3 +36,4 @@ References
 [Wikipedia - Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System)
 
 [DNS Name Resolution Process](http://www.tcpipguide.com/free/t_DNSNameResolutionProcess-2.htm)
+
