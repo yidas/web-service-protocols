@@ -1,25 +1,34 @@
 @startuml
+title DNS Recursive Query Process (www.net.compsci.googleplex.edu)
+
 participant "Client" as c
-participant "DNS Resolver" as resolver
+participant "DNS Resolver\n(e.g., 8.8.8.8)" as resolver
 
-participant "root \nNameServer" as rns
-participant "edu \nNameServer" as tldns
+participant "Root \nNameServer" as rns
+participant ".edu \nNameServer (TLD)" as tldns
 participant "googleplex.edu \nNameServer" as dns
-participant "compsci.googleplex.edu \nNameServer" as sns
+participant "compsci.googleplex.edu \nNameServer (Authoritative)" as sns
 
-c->resolver: Recursive Query
+c->resolver: 1. Recursive Query for \nwww.net.compsci.googleplex.edu
 activate resolver
-resolver->resolver: Check Local Cache
-resolver->rns: Iterative Query to root
-rns-->resolver: Name Server for .edu
-resolver->tldns: Iterative Query to .edu
-tldns-->resolver: Name Server for googleplex.edu
-resolver->dns: Iterative Query to googleplex.edu
-dns-->resolver: Name Server for compsci.googleplex.edu
-resolver->sns: Iterative Query to compsci.googleplex.edu
-sns-->resolver: Record(s) for www.net.compsci.googleplex.edu
-resolver->resolver: Update Local Cache
-resolver-->c: Requested Result
-deactivate resolver
+resolver->resolver: 2. Check Local Cache
 
+alt Cache Miss (Local Cache doesn't have the record)
+    resolver->rns: 3. Iterative Query for www.net.compsci.googleplex.edu
+    rns-->resolver: 4. NS Record (A/AAAA) for .edu (Next hop)
+    
+    resolver->tldns: 5. Iterative Query for www.net.compsci.googleplex.edu
+    tldns-->resolver: 6. NS Record (A/AAAA) for googleplex.edu (Next hop)
+    
+    resolver->dns: 7. Iterative Query for www.net.compsci.googleplex.edu
+    dns-->resolver: 8. NS Record (A/AAAA) for compsci.googleplex.edu (Next hop)
+    
+    resolver->sns: 9. Iterative Query for www.net.compsci.googleplex.edu
+    sns-->resolver: 10. Final A/AAAA Record(s) (IP Address)
+    
+    resolver->resolver: 11. Update Local Cache (Store IP)
+end
+
+resolver-->c: 12. Requested Result (IP Address)
+deactivate resolver
 @enduml
